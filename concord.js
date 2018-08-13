@@ -725,7 +725,7 @@ function ConcordEditor(root, concordInstance) {
 			child.appendTo(children);
 			});
 		if(collapsed){
-			if(outline.children("outline").size()>0){
+			if(outline.children("outline").length>0){
 				node.addClass("collapsed");
 				}
 			}

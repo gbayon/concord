@@ -162,7 +162,7 @@ function ConcordOutline(container, options) {
 				this.pasteBin.text("...");
 				}
 			this.op.focusCursor();
-			this.pasteBin.focus();
+			this.pasteBin.trigger("focus");
 			if(this.pasteBin[0] === document.activeElement){
 				document.execCommand("selectAll");
 				}
@@ -1584,7 +1584,7 @@ function ConcordOp(root, concordInstance, _cursor) {
 			}
 		};
 	this.focusCursor = function(){
-		this.getCursor().children(".concord-wrapper").children(".concord-text").focus();
+		this.getCursor().children(".concord-wrapper").children(".concord-text").trigger("focus");
 		};
 	this.blurCursor = function(){
 		this.getCursor().children(".concord-wrapper").children(".concord-text").blur();

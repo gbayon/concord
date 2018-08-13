@@ -450,7 +450,7 @@ function ConcordEditor(root, concordInstance) {
 		if(empty) {
 			text.html("");
 			}
-		text.focus();
+		text.trigger("focus");
 		var el = text.get(0);
 		if(el && el.childNodes && el.childNodes[0]){
 			if (typeof window.getSelection != "undefined" && typeof document.createRange != "undefined") {
@@ -801,7 +801,7 @@ function ConcordEditor(root, concordInstance) {
 					concordInstance.op.insertText(h);
 					}else{
 						concordInstance.op.saveState();
-						concordText.focus();
+						concordText.trigger("focus");
 						var range = concordText.parents(".concord-node:first").data("range");
 						if(range){
 							try{
@@ -1099,7 +1099,7 @@ function ConcordEvents(root, editor, op, concordInstance) {
 		$(this).addClass("paste");
 		concordInstance.editor.saveSelection();
 		concordInstance.pasteBin.html("");
-		concordInstance.pasteBin.focus();
+		concordInstance.pasteBin.trigger("focus");
 		setTimeout(editor.sanitize,10);
 		});
 	concordInstance.pasteBin.on("copy", function(){
@@ -1113,7 +1113,7 @@ function ConcordEvents(root, editor, op, concordInstance) {
 		if((copyText!="") && (copyText!="\n")){
 			concordClipboard = {text: copyText, data: root.find(".selected").clone(true, true)};
 			concordInstance.pasteBin.html("<pre>"+$("<div/>").text(copyText).html()+"</pre>");
-			concordInstance.pasteBin.focus();
+			concordInstance.pasteBin.trigger("focus");
 			document.execCommand("selectAll");
 			}
 		});
@@ -1442,7 +1442,7 @@ function ConcordOp(root, concordInstance, _cursor) {
 	this.countSubs = function() {
 		var node = this.getCursor();
 		if(node.length == 1) {
-			return node.children("ol").children().size();
+			return node.children("ol").children().length;
 			}
 		return 0;
 		};
@@ -1587,11 +1587,11 @@ function ConcordOp(root, concordInstance, _cursor) {
 		this.getCursor().children(".concord-wrapper").children(".concord-text").trigger("focus");
 		};
 	this.blurCursor = function(){
-		this.getCursor().children(".concord-wrapper").children(".concord-text").blur();
+		this.getCursor().children(".concord-wrapper").children(".concord-text").trigger("blur");
 		};
 	this.fullCollapse = function() {
 		root.find(".concord-node").each(function() {
-			if($(this).children("ol").children().size() > 0) {
+			if($(this).children("ol").children().length > 0) {
 				$(this).addClass("collapsed");
 				}
 			});
@@ -1708,7 +1708,7 @@ function ConcordOp(root, concordInstance, _cursor) {
 				while(cursor && (nodeCount < count)) {
 					var cursor = this._walk_up(cursor);
 					if(cursor) {
-						if(!cursor.hasClass("collapsed") && (cursor.children("ol").children().size() > 0)) {
+						if(!cursor.hasClass("collapsed") && (cursor.children("ol").children().length > 0)) {
 							nodeCount++;
 							ableToMoveInDirection = true;
 							if(nodeCount == count) {
@@ -1737,7 +1737,7 @@ function ConcordOp(root, concordInstance, _cursor) {
 						}
 					cursor = next;
 					if(cursor) {
-						if(!cursor.hasClass("collapsed") && (cursor.children("ol").children().size() > 0)) {
+						if(!cursor.hasClass("collapsed") && (cursor.children("ol").children().length > 0)) {
 							nodeCount++;
 							ableToMoveInDirection = true;
 							if(nodeCount == count) {
@@ -2289,7 +2289,7 @@ function ConcordOp(root, concordInstance, _cursor) {
 	this.subsExpanded = function() {
 		var node = this.getCursor();
 		if(node.length == 1) {
-			if(!node.hasClass("collapsed") && (node.children("ol").children().size() > 0)) {
+			if(!node.hasClass("collapsed") && (node.children("ol").children().length > 0)) {
 				return true;
 				} else {
 					return false;
@@ -2326,7 +2326,7 @@ function ConcordOp(root, concordInstance, _cursor) {
 		var cursor = root.find(".concord-node:first");
 		do {
 			if(cursor) {
-				if(!cursor.hasClass("collapsed") && (cursor.children("ol").children().size() > 0)) {
+				if(!cursor.hasClass("collapsed") && (cursor.children("ol").children().length > 0)) {
 					expansionStates.push(nodeId);
 					}
 				nodeId++;
